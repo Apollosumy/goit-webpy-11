@@ -5,6 +5,7 @@ from datetime import date, timedelta
 from database import get_db
 from models import Contact
 from schemas import ContactCreate, ContactResponse, ContactUpdate
+from fastapi_jwt_auth import AuthJWT
 
 router = APIRouter()
 
@@ -86,3 +87,10 @@ def get_upcoming_birthdays(db: Session = Depends(get_db)):
     ).all()
 
     return contacts
+
+
+@router.get("/", response_model=List[ContactResponse])
+def get_contacts(db: Session = Depends(get_db), Authorize: AuthJWT = Depends()):
+    Authorize.jwt_required()
+    user_id = Authorize.get_jwt_identity()
+    return db.query(Contact).filter(Contact.owner_id == user_id).all()

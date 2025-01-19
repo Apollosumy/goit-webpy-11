@@ -26,3 +26,11 @@ class ContactResponse(ContactBase):
 
     class Config:
         orm_mode = True
+
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    refresh_token: str
