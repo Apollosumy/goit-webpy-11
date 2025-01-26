@@ -34,3 +34,16 @@ class UserCreate(BaseModel):
 class Token(BaseModel):
     access_token: str
     refresh_token: str
+
+class VerifyEmail(BaseModel):
+    token: str
+
+class PasswordResetRequest(BaseModel):
+    email: EmailStr
+
+class PasswordResetConfirm(BaseModel):
+    token: str
+    new_password: str
+
+class AvatarUploadResponse(BaseModel):
+    avatar_url: str

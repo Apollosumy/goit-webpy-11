@@ -1,7 +1,5 @@
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, Boolean
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from database import Base
 
 Base = declarative_base()
 
@@ -14,7 +12,7 @@ class Contact(Base):
     email = Column(String, unique=True, nullable=False)
     phone = Column(String, nullable=False)
     birthday = Column(Date, nullable=False)
-    extra_data = Column(String, nullable=True)  # Убедитесь, что это поле добавлено
+    extra_data = Column(String, nullable=True)
 
 class User(Base):
     __tablename__ = "users"
@@ -22,3 +20,5 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)
+    is_verified = Column(Boolean, default=False)
+    avatar_url = Column(String, nullable=True)

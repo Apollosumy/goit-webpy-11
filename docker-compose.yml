@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:Ghbdtn_123456@db-1:5432/contacts_db_goit"
+    depends_on:
+      - db-1
+
+  db-1:  # Зміна назви сервісу на db-1
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Ghbdtn_123456
+      POSTGRES_DB: contacts_db_goit
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+
+volumes:
+  postgres_data:
